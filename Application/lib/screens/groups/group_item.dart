@@ -1,6 +1,7 @@
 import 'package:application/domain/access_type.dart';
 import 'package:application/domain/group.dart';
 import 'package:application/providers/navigation_provider.dart';
+import 'package:application/services/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -48,18 +49,73 @@ class GroupItem extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    Expanded(child: Container()),
+                    getActiveButton(groups, group),
                   ],
                 ),
               ),
             ),
           ),
           onTap: () => {
-            print('Requesting group: ' + group.uuid),
-            groups.hardSelectedGroupsRequest(group.uuid),
-            navigation.changeGroupScreen('/group'),
+            if (group.isMember)
+              {
+                print('Requesting group: ' + group.uuid),
+                groups.hardSelectedGroupsRequest(group.uuid),
+                navigation.changeGroupScreen('/group'),
+              }
           },
         ),
       ),
     );
+  }
+
+  getActiveButton(GroupsProvider groups, Group group) {
+    if (group.isMember) {
+      return GestureDetector(
+        child: const SizedBox(
+          width: 36,
+          height: 36,
+          child: Icon(
+            Icons.close,
+            color: Colors.white,
+          ),
+        ),
+        onTap: () async => {
+          await HttpService.leaveGroup(group.uuid),
+          groups.hardUserGroupsRequest()
+        },
+      );
+    }
+
+    if (group.isRequestPending) {
+      return const SizedBox(
+        width: 36,
+        height: 36,
+        child: Icon(
+          Icons.lock_clock,
+          color: Colors.white,
+        ),
+      );
+    }
+
+    if (!group.isMember && !group.isRequestPending) {
+      return GestureDetector(
+        child: const SizedBox(
+          width: 36,
+          height: 36,
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+        ),
+        onTap: () async => {
+          await HttpService.tryToJoinGroup(group.uuid),
+          groups.hardUserGroupsRequest(),
+          groups.fetchGroupBrowsingResult(""),
+        },
+      );
+    }
+
+    return Container();
   }
 }

@@ -18,11 +18,7 @@ class PostCreationPage extends StatefulWidget {
 }
 
 class _PostCreationPageState extends State<PostCreationPage> {
-  List<XFile>? _imageFileList;
-
-  set _imageFile(XFile? value) {
-    _imageFileList = value == null ? null : <XFile>[value];
-  }
+  XFile? _imageFile;
 
   dynamic _pickImageError;
   String? _retrieveDataError;
@@ -159,13 +155,23 @@ class _PostCreationPageState extends State<PostCreationPage> {
                       ),
                     ),
                     onTap: () async => {
-                      await HttpService.createNewPost(
-                        groups.postCreationTargetUuid!,
-                        titleController.text,
-                        descriptionController.text,
-                        "myCustomImage",
-                      ),
-                      groups.hardChallengeFeedRequest(
+                      if (titleController.text != "" &&
+                          descriptionController.text != "" &&
+                          _imageFile != null)
+                        isRatedPost
+                            ? await HttpService.createNewRatedPost(
+                                groups.postCreationTargetUuid!,
+                                titleController.text,
+                                descriptionController.text,
+                                _imageFile!,
+                              )
+                            : await HttpService.createNewPost(
+                                groups.postCreationTargetUuid!,
+                                titleController.text,
+                                descriptionController.text,
+                                _imageFile!,
+                              ),
+                      groups.hardSelectedChallengeRequest(
                           groups.postCreationTargetUuid!),
                       groups.setPostCreationTargetUuid(null),
                       Navigator.pop(context),
@@ -204,19 +210,13 @@ class _PostCreationPageState extends State<PostCreationPage> {
     if (retrieveError != null) {
       return retrieveError;
     }
-    if (_imageFileList != null) {
+    if (_imageFile != null) {
       return Semantics(
-          child: ListView.builder(
-            key: UniqueKey(),
-            itemBuilder: (BuildContext context, int index) {
-              return Semantics(
-                label: 'image_picker_example_picked_image',
-                child: kIsWeb
-                    ? Image.network(_imageFileList![index].path)
-                    : Image.file(File(_imageFileList![index].path)),
-              );
-            },
-            itemCount: _imageFileList!.length,
+          child: Semantics(
+            label: 'image_picker_example_picked_image',
+            child: kIsWeb
+                ? Image.network(_imageFile!.path)
+                : Image.file(File(_imageFile!.path)),
           ),
           label: 'image_picker_example_picked_images');
     } else if (_pickImageError != null) {
@@ -240,7 +240,6 @@ class _PostCreationPageState extends State<PostCreationPage> {
     if (response.file != null) {
       setState(() {
         _imageFile = response.file;
-        _imageFileList = response.files;
       });
     } else {
       _retrieveDataError = response.exception!.code;

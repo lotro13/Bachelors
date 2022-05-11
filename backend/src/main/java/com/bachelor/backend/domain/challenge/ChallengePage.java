@@ -32,6 +32,8 @@ public abstract class ChallengePage implements Serializable {
 
     public abstract boolean getCanCreateRatedPost();
 
+    public abstract boolean getIsParticipant();
+
     @Value.Default
     public Map<String, Integer> getScoreboard() {
         return Map.of();

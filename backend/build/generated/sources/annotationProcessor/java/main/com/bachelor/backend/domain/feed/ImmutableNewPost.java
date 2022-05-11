@@ -25,18 +25,21 @@ public final class ImmutableNewPost extends NewPost {
   private final String title;
   private final String description;
   private final String bodyURL;
+  private final boolean isRated;
 
   private ImmutableNewPost(
       UUID author,
       UUID target,
       String title,
       String description,
-      String bodyURL) {
+      String bodyURL,
+      boolean isRated) {
     this.author = author;
     this.target = target;
     this.title = title;
     this.description = description;
     this.bodyURL = bodyURL;
+    this.isRated = isRated;
   }
 
   /**
@@ -85,6 +88,15 @@ public final class ImmutableNewPost extends NewPost {
   }
 
   /**
+   * @return The value of the {@code isRated} attribute
+   */
+  @JsonProperty("isRated")
+  @Override
+  public boolean getIsRated() {
+    return isRated;
+  }
+
+  /**
    * Copy the current immutable object by setting a value for the {@link NewPost#getAuthor() author} attribute.
    * A shallow reference equality check is used to prevent copying of the same value by returning {@code this}.
    * @param value A new value for author
@@ -93,7 +105,7 @@ public final class ImmutableNewPost extends NewPost {
   public final ImmutableNewPost withAuthor(UUID value) {
     if (this.author == value) return this;
     UUID newValue = Objects.requireNonNull(value, "author");
-    return new ImmutableNewPost(newValue, this.target, this.title, this.description, this.bodyURL);
+    return new ImmutableNewPost(newValue, this.target, this.title, this.description, this.bodyURL, this.isRated);
   }
 
   /**
@@ -105,7 +117,7 @@ public final class ImmutableNewPost extends NewPost {
   public final ImmutableNewPost withTarget(UUID value) {
     if (this.target == value) return this;
     UUID newValue = Objects.requireNonNull(value, "target");
-    return new ImmutableNewPost(this.author, newValue, this.title, this.description, this.bodyURL);
+    return new ImmutableNewPost(this.author, newValue, this.title, this.description, this.bodyURL, this.isRated);
   }
 
   /**
@@ -117,7 +129,7 @@ public final class ImmutableNewPost extends NewPost {
   public final ImmutableNewPost withTitle(String value) {
     String newValue = Objects.requireNonNull(value, "title");
     if (this.title.equals(newValue)) return this;
-    return new ImmutableNewPost(this.author, this.target, newValue, this.description, this.bodyURL);
+    return new ImmutableNewPost(this.author, this.target, newValue, this.description, this.bodyURL, this.isRated);
   }
 
   /**
@@ -129,7 +141,7 @@ public final class ImmutableNewPost extends NewPost {
   public final ImmutableNewPost withDescription(String value) {
     String newValue = Objects.requireNonNull(value, "description");
     if (this.description.equals(newValue)) return this;
-    return new ImmutableNewPost(this.author, this.target, this.title, newValue, this.bodyURL);
+    return new ImmutableNewPost(this.author, this.target, this.title, newValue, this.bodyURL, this.isRated);
   }
 
   /**
@@ -141,7 +153,18 @@ public final class ImmutableNewPost extends NewPost {
   public final ImmutableNewPost withBodyURL(String value) {
     String newValue = Objects.requireNonNull(value, "bodyURL");
     if (this.bodyURL.equals(newValue)) return this;
-    return new ImmutableNewPost(this.author, this.target, this.title, this.description, newValue);
+    return new ImmutableNewPost(this.author, this.target, this.title, this.description, newValue, this.isRated);
+  }
+
+  /**
+   * Copy the current immutable object by setting a value for the {@link NewPost#getIsRated() isRated} attribute.
+   * A value equality check is used to prevent copying of the same value by returning {@code this}.
+   * @param value A new value for isRated
+   * @return A modified copy of the {@code this} object
+   */
+  public final ImmutableNewPost withIsRated(boolean value) {
+    if (this.isRated == value) return this;
+    return new ImmutableNewPost(this.author, this.target, this.title, this.description, this.bodyURL, value);
   }
 
   /**
@@ -160,11 +183,12 @@ public final class ImmutableNewPost extends NewPost {
         && target.equals(another.target)
         && title.equals(another.title)
         && description.equals(another.description)
-        && bodyURL.equals(another.bodyURL);
+        && bodyURL.equals(another.bodyURL)
+        && isRated == another.isRated;
   }
 
   /**
-   * Computes a hash code from attributes: {@code author}, {@code target}, {@code title}, {@code description}, {@code bodyURL}.
+   * Computes a hash code from attributes: {@code author}, {@code target}, {@code title}, {@code description}, {@code bodyURL}, {@code isRated}.
    * @return hashCode value
    */
   @Override
@@ -175,6 +199,7 @@ public final class ImmutableNewPost extends NewPost {
     h += (h << 5) + title.hashCode();
     h += (h << 5) + description.hashCode();
     h += (h << 5) + bodyURL.hashCode();
+    h += (h << 5) + Boolean.hashCode(isRated);
     return h;
   }
 
@@ -190,6 +215,7 @@ public final class ImmutableNewPost extends NewPost {
         + ", title=" + title
         + ", description=" + description
         + ", bodyURL=" + bodyURL
+        + ", isRated=" + isRated
         + "}";
   }
 
@@ -207,6 +233,8 @@ public final class ImmutableNewPost extends NewPost {
     String title;
     String description;
     String bodyURL;
+    boolean isRated;
+    boolean isRatedIsSet;
     @JsonProperty("author")
     public void setAuthor(UUID author) {
       this.author = author;
@@ -227,6 +255,11 @@ public final class ImmutableNewPost extends NewPost {
     public void setBodyURL(String bodyURL) {
       this.bodyURL = bodyURL;
     }
+    @JsonProperty("isRated")
+    public void setIsRated(boolean isRated) {
+      this.isRated = isRated;
+      this.isRatedIsSet = true;
+    }
     @Override
     public UUID getAuthor() { throw new UnsupportedOperationException(); }
     @Override
@@ -237,6 +270,8 @@ public final class ImmutableNewPost extends NewPost {
     public String getDescription() { throw new UnsupportedOperationException(); }
     @Override
     public String getBodyURL() { throw new UnsupportedOperationException(); }
+    @Override
+    public boolean getIsRated() { throw new UnsupportedOperationException(); }
   }
 
   /**
@@ -262,6 +297,9 @@ public final class ImmutableNewPost extends NewPost {
     }
     if (json.bodyURL != null) {
       builder.bodyURL(json.bodyURL);
+    }
+    if (json.isRatedIsSet) {
+      builder.isRated(json.isRated);
     }
     return builder.build();
   }
@@ -291,6 +329,7 @@ public final class ImmutableNewPost extends NewPost {
    *    .title(String) // required {@link NewPost#getTitle() title}
    *    .description(String) // required {@link NewPost#getDescription() description}
    *    .bodyURL(String) // required {@link NewPost#getBodyURL() bodyURL}
+   *    .isRated(boolean) // required {@link NewPost#getIsRated() isRated}
    *    .build();
    * </pre>
    * @return A new ImmutableNewPost builder
@@ -313,13 +352,15 @@ public final class ImmutableNewPost extends NewPost {
     private static final long INIT_BIT_TITLE = 0x4L;
     private static final long INIT_BIT_DESCRIPTION = 0x8L;
     private static final long INIT_BIT_BODY_U_R_L = 0x10L;
-    private long initBits = 0x1fL;
+    private static final long INIT_BIT_IS_RATED = 0x20L;
+    private long initBits = 0x3fL;
 
     private UUID author;
     private UUID target;
     private String title;
     private String description;
     private String bodyURL;
+    private boolean isRated;
 
     private Builder() {
     }
@@ -338,6 +379,7 @@ public final class ImmutableNewPost extends NewPost {
       title(instance.getTitle());
       description(instance.getDescription());
       bodyURL(instance.getBodyURL());
+      isRated(instance.getIsRated());
       return this;
     }
 
@@ -402,6 +444,18 @@ public final class ImmutableNewPost extends NewPost {
     }
 
     /**
+     * Initializes the value for the {@link NewPost#getIsRated() isRated} attribute.
+     * @param isRated The value for isRated 
+     * @return {@code this} builder for use in a chained invocation
+     */
+    @JsonProperty("isRated")
+    public final Builder isRated(boolean isRated) {
+      this.isRated = isRated;
+      initBits &= ~INIT_BIT_IS_RATED;
+      return this;
+    }
+
+    /**
      * Builds a new {@link ImmutableNewPost ImmutableNewPost}.
      * @return An immutable instance of NewPost
      * @throws java.lang.IllegalStateException if any required attributes are missing
@@ -410,7 +464,7 @@ public final class ImmutableNewPost extends NewPost {
       if (initBits != 0) {
         throw new IllegalStateException(formatRequiredAttributesMessage());
       }
-      return new ImmutableNewPost(author, target, title, description, bodyURL);
+      return new ImmutableNewPost(author, target, title, description, bodyURL, isRated);
     }
 
     private String formatRequiredAttributesMessage() {
@@ -420,6 +474,7 @@ public final class ImmutableNewPost extends NewPost {
       if ((initBits & INIT_BIT_TITLE) != 0) attributes.add("title");
       if ((initBits & INIT_BIT_DESCRIPTION) != 0) attributes.add("description");
       if ((initBits & INIT_BIT_BODY_U_R_L) != 0) attributes.add("bodyURL");
+      if ((initBits & INIT_BIT_IS_RATED) != 0) attributes.add("isRated");
       return "Cannot build NewPost, some of required attributes are not set " + attributes;
     }
   }

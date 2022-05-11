@@ -18,6 +18,7 @@ class Challenge {
   bool canManageStatus;
   bool canCreatePost;
   bool canCreateRatedPost;
+  bool isParticipant;
   Map<String, int> scoreboard;
 
   Challenge(
@@ -33,6 +34,7 @@ class Challenge {
     this.canManageStatus,
     this.canCreatePost,
     this.canCreateRatedPost,
+    this.isParticipant,
     this.scoreboard,
   );
 
@@ -50,6 +52,7 @@ class Challenge {
       json['canManageStatus'] as bool,
       json['canCreatePost'] as bool,
       json['canCreateRatedPost'] as bool,
+      json['isParticipant'] as bool,
       Map.castFrom(json['scoreboard']),
     );
   }

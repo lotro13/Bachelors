@@ -1,3 +1,4 @@
+import 'package:application/services/http_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../domain/group.dart';
@@ -80,6 +81,7 @@ class GroupFragment extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 26),
                             child: FloatingActionButton(
+                              heroTag: "groupCreateButton",
                               onPressed: () => {
                                 Navigator.pushNamed(
                                     context, '/create/challenge'),
@@ -94,17 +96,64 @@ class GroupFragment extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomRight,
                     child: FloatingActionButton(
+                      heroTag: "groupSearchButton",
                       onPressed: () => {
-                        Navigator.pushNamed(context, '/find/challenge'),
+                        Navigator.pushNamed(context, '/browse/challenge'),
                       },
-                      tooltip: 'Create group',
+                      tooltip: 'Find group',
                       child: const Icon(Icons.search),
                     ),
                   ),
                 ],
               ),
             ),
-            ScoreBoard(results: group.scoredoard),
+            Column(
+              children: [
+                SizedBox(
+                  height: 300,
+                  child: ScoreBoard(results: group.scoredoard),
+                ),
+                if (group.pendingRequests.isNotEmpty)
+                  Expanded(
+                    child: ListView(
+                      children: group.pendingRequests
+                          .map(
+                            (e) => SizedBox(
+                              height: 30,
+                              child: Flex(
+                                direction: Axis.horizontal,
+                                children: [
+                                  const Icon(Icons.person),
+                                  Text(e.username),
+                                  Expanded(child: Container()),
+                                  GestureDetector(
+                                    child: const Icon(Icons.add_box_outlined),
+                                    onTap: () async => {
+                                      await HttpService.aprooveJoinRequest(
+                                          group.uuid, e.uuid),
+                                      await groups.hardSelectedGroupsRequest(
+                                          group.uuid),
+                                    },
+                                  ),
+                                  const SizedBox(width: 14),
+                                  GestureDetector(
+                                    child: const Icon(Icons.close_outlined),
+                                    onTap: () async => {
+                                      await HttpService.denyJoinRequest(
+                                          group.uuid, e.uuid),
+                                      await groups.hardSelectedGroupsRequest(
+                                          group.uuid),
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+              ],
+            ),
           ],
         ),
       ),

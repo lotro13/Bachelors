@@ -21,4 +21,6 @@ public abstract class NewPost implements Serializable {
     public abstract String getDescription();
 
     public abstract String getBodyURL();
+
+    public abstract boolean getIsRated();
 }

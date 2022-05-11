@@ -8,16 +8,10 @@ class Post {
   String description;
   String bodyURL;
   int numberOfComments;
+  bool isRated;
 
-  Post(
-    this.uuid,
-    this.author,
-    this.target,
-    this.title,
-    this.description,
-    this.bodyURL,
-    this.numberOfComments,
-  );
+  Post(this.uuid, this.author, this.target, this.title, this.description,
+      this.bodyURL, this.numberOfComments, this.isRated);
 
   factory Post.fromJson(dynamic json) {
     return Post(
@@ -28,6 +22,7 @@ class Post {
       json['description'] as String,
       json['bodyURL'] as String,
       json['numberOfComments'] as int,
+      false,
     );
   }
 
@@ -39,6 +34,7 @@ class Post {
       "title": title,
       "description": description,
       "bodyURL": bodyURL,
+      "isRated": isRated,
     });
   }
 }

@@ -12,6 +12,8 @@ class Group {
   AccessType accessType;
   bool canCreateChallenge;
   bool canManageUsers;
+  bool isMember;
+  bool isRequestPending;
   List<User> pendingRequests;
   Map<String, int> scoredoard;
 
@@ -22,6 +24,8 @@ class Group {
       this.founder,
       this.canCreateChallenge,
       this.canManageUsers,
+      this.isMember,
+      this.isRequestPending,
       this.pendingRequests,
       this.scoredoard);
 
@@ -33,6 +37,8 @@ class Group {
       "",
       json['canCreateChallenge'] as bool,
       json['canManageUsers'] as bool,
+      json['isMember'] as bool,
+      json['isRequestPending'] as bool,
       (json['pendingRequests'] as List).map((e) => User.fromJson(e)).toList(),
       Map.castFrom(json['scoreboard']),
     );
@@ -43,6 +49,7 @@ class Group {
     return jsonEncode({
       "uuid": uuid,
       "name": name,
+      "founder": founder,
       "accessType": accessType.name,
     });
   }

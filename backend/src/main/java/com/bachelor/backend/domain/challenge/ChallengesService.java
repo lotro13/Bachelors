@@ -27,9 +27,7 @@ public class ChallengesService {
         final var optionalChallenge = challengesRepository.findByUuid(challengeUuid);
         if (optionalChallenge.isPresent()) {
             final Challenge challenge = optionalChallenge.get();
-            final LocalDateTime now = LocalDateTime.now();
-            if (LocalDateTime.parse(challenge.getDeadline()).isAfter(now)
-                    && userUuid.equals(challenge.getFounder())
+            if (userUuid.equals(challenge.getFounder())
                     && (
                     challenge.getStatus().equals(ChallengeStatus.STARTED)
                             || challenge.getStatus().equals(ChallengeStatus.IDLE)
@@ -47,9 +45,7 @@ public class ChallengesService {
         final var optionalChallenge = challengesRepository.findByUuid(challengeUuid);
         if (optionalChallenge.isPresent()) {
             final Challenge challenge = optionalChallenge.get();
-            final LocalDateTime now = LocalDateTime.now();
-            if (LocalDateTime.parse(challenge.getDeadline()).isAfter(now)
-                    && userUuid.equals(challenge.getFounder())
+            if (userUuid.equals(challenge.getFounder())
                     && challenge.getStatus().equals(ChallengeStatus.IDLE)
             ) {
                 final Challenge newChallenge = challenge.copy()

@@ -78,9 +78,7 @@ public class MockData {
             Post.create(thirdPost, thirdUser, thirdChallenge, "I did it", "I have just run my first marathon", "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.easytourchina.com%2Fimages%2FPhoto%2Fguilin-international-marathon%2Fp323_d20171127153159.jpg&f=1&nofb=1", 0),
             Post.create(fourthPost, firstUser, secondChallenge, "Halfway done", "", "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.mnI23746ma3_3vrHQkZNjgHaHa%26pid%3DApi&f=1", 0),
             Post.create(fifthPost, firstUser, thirdChallenge, "Almost", ":(", "https://media.istockphoto.com/photos/exhaustion-after-the-race-picture-id139862046?k=20&m=139862046&s=612x612&w=0&h=cXhtgsQOe7uEjvfGDE4HWTYetopUtwc0t8yEi_i4Js0=", 0),
-            Post.create(sixthPost, secondUser, fourthChallenge, "sixthPost", "description", "http://icons.iconarchive.com/icons/alex-t/minimal-fruit/1024/orange-icon.png", 0),
-            Post.create(seventhPost, secondUser, fifthChallenge, "seventhPost", "description", "http://icons.iconarchive.com/icons/alex-t/minimal-fruit/1024/orange-icon.png", 0),
-            Post.create(eightPost, secondUser, fifthChallenge, "eightPost", "description", "http://icons.iconarchive.com/icons/alex-t/minimal-fruit/1024/orange-icon.png", 0)
+            Post.create(sixthPost, secondUser, fourthChallenge, "New gym", "", "https://www.californiafamilyfitness.com/hubfs/2021/2021%20Indoor%20Gym%20Page%20Photos/RSV/Rosevillle_Freeweights.jpg", 0)
     );
 
     public static List<Comment> COMMENTS = List.of(
@@ -88,11 +86,11 @@ public class MockData {
             Comment.create(secondComment, firstUser, thirdPost, "Thanks :)"),
             Comment.create(thirdComment, thirdUser, thirdPost, "I hope I will be able to do the same soon"),
             Comment.create(fourthComment, firstUser, thirdPost, "One day :("),
-            Comment.create(fifthComment, firstUser, fourthPost, "fifthComment"),
-            Comment.create(sixthComment, thirdUser, fourthPost, "sixthComment"),
-            Comment.create(seventhComment, firstUser, fourthPost, "seventhComment"),
-            Comment.create(eightComment, thirdUser, fourthPost, "eightComment"),
-            Comment.create(ninthComment, thirdUser, eightPost, "ninthComment"),
-            Comment.create(tenthComment, firstUser, eightPost, "tenthComment")
+            Comment.create(fifthComment, firstUser, fourthPost, "I said something"),
+            Comment.create(sixthComment, thirdUser, fourthPost, "Nice group"),
+            Comment.create(seventhComment, firstUser, fourthPost, "When do we party>"),
+            Comment.create(eightComment, thirdUser, fourthPost, "Soon will do my first post"),
+            Comment.create(ninthComment, thirdUser, eightPost, "Nice xD"),
+            Comment.create(tenthComment, firstUser, eightPost, "Great")
     );
 }

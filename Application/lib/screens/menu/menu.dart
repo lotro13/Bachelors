@@ -1,4 +1,6 @@
 import 'package:application/providers/feed_provider.dart';
+import 'package:application/providers/groups_provider.dart';
+import 'package:application/providers/login_provider.dart';
 import 'package:application/providers/navigation_provider.dart';
 import 'package:application/screens/feed/feed_fragment.dart';
 import 'package:application/screens/groups/groups.dart';
@@ -15,6 +17,7 @@ class MenuPage extends StatelessWidget {
     NavigationProvider navigation = Provider.of<NavigationProvider>(context);
     FeedProvider feed = Provider.of<FeedProvider>(context);
 
+    feed.getCurrentUsername();
     feed.softRequestMainFeed();
 
     var fragments = [
@@ -38,15 +41,15 @@ class MenuPage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: Row(
-            children: const [
-              Icon(
+            children: [
+              const Icon(
                 Icons.person_rounded,
                 color: Colors.blue,
                 size: 36.0,
               ),
               Text(
-                'Username',
-                style: TextStyle(
+                feed.name != null ? feed.name! : "Andrej",
+                style: const TextStyle(
                   color: Color.fromARGB(255, 0, 44, 80),
                   fontSize: 22,
                   fontWeight: FontWeight.bold,

@@ -1,5 +1,4 @@
 import 'package:application/domain/access_type.dart';
-import 'package:application/domain/group.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -1,4 +1,7 @@
+import 'package:application/domain/user.dart';
+import 'package:application/providers/login_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../services/http_service.dart';
 
@@ -122,24 +125,6 @@ class _LoginPagePageState extends State<LoginPage> {
                                       ),
                                     ),
                                   ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    Icon(
-                                      Icons.facebook,
-                                      color: Colors.blue,
-                                      size: 36.0,
-                                    ),
-                                    SizedBox(width: 36),
-                                    SizedBox(
-                                      height: 36,
-                                      width: 36,
-                                      child: Image(
-                                        image: AssetImage('assets/gmail.png'),
-                                      ),
-                                    ),
-                                  ],
-                                ),
                               ],
                             ),
                     ),

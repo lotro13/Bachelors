@@ -32,6 +32,8 @@ public final class ImmutableGroupPage extends GroupPage {
   private final String name;
   private final boolean canCreateChallenge;
   private final boolean canManageUsers;
+  private final boolean isMember;
+  private final boolean isRequestPending;
   private final List<UserPage> members;
   private final List<UserPage> pendingRequests;
   private final Map<String, Integer> scoreboard;
@@ -42,6 +44,8 @@ public final class ImmutableGroupPage extends GroupPage {
     this.name = builder.name;
     this.canCreateChallenge = builder.canCreateChallenge;
     this.canManageUsers = builder.canManageUsers;
+    this.isMember = builder.isMember;
+    this.isRequestPending = builder.isRequestPending;
     this.members = createUnmodifiableList(true, builder.members);
     if (builder.pendingRequestsIsSet()) {
       initShim.pendingRequests(createUnmodifiableList(true, builder.pendingRequests));
@@ -60,6 +64,8 @@ public final class ImmutableGroupPage extends GroupPage {
       String name,
       boolean canCreateChallenge,
       boolean canManageUsers,
+      boolean isMember,
+      boolean isRequestPending,
       List<UserPage> members,
       List<UserPage> pendingRequests,
       Map<String, Integer> scoreboard) {
@@ -68,6 +74,8 @@ public final class ImmutableGroupPage extends GroupPage {
     this.name = name;
     this.canCreateChallenge = canCreateChallenge;
     this.canManageUsers = canManageUsers;
+    this.isMember = isMember;
+    this.isRequestPending = isRequestPending;
     this.members = members;
     this.pendingRequests = pendingRequests;
     this.scoreboard = scoreboard;
@@ -171,6 +179,24 @@ public final class ImmutableGroupPage extends GroupPage {
   }
 
   /**
+   * @return The value of the {@code isMember} attribute
+   */
+  @JsonProperty("isMember")
+  @Override
+  public boolean getIsMember() {
+    return isMember;
+  }
+
+  /**
+   * @return The value of the {@code isRequestPending} attribute
+   */
+  @JsonProperty("isRequestPending")
+  @Override
+  public boolean getIsRequestPending() {
+    return isRequestPending;
+  }
+
+  /**
    * @return The value of the {@code members} attribute
    */
   @JsonProperty("members")
@@ -218,6 +244,8 @@ public final class ImmutableGroupPage extends GroupPage {
         this.name,
         this.canCreateChallenge,
         this.canManageUsers,
+        this.isMember,
+        this.isRequestPending,
         this.members,
         this.pendingRequests,
         this.scoreboard);
@@ -238,6 +266,8 @@ public final class ImmutableGroupPage extends GroupPage {
         this.name,
         this.canCreateChallenge,
         this.canManageUsers,
+        this.isMember,
+        this.isRequestPending,
         this.members,
         this.pendingRequests,
         this.scoreboard);
@@ -258,6 +288,8 @@ public final class ImmutableGroupPage extends GroupPage {
         newValue,
         this.canCreateChallenge,
         this.canManageUsers,
+        this.isMember,
+        this.isRequestPending,
         this.members,
         this.pendingRequests,
         this.scoreboard);
@@ -277,6 +309,8 @@ public final class ImmutableGroupPage extends GroupPage {
         this.name,
         value,
         this.canManageUsers,
+        this.isMember,
+        this.isRequestPending,
         this.members,
         this.pendingRequests,
         this.scoreboard);
@@ -296,6 +330,50 @@ public final class ImmutableGroupPage extends GroupPage {
         this.name,
         this.canCreateChallenge,
         value,
+        this.isMember,
+        this.isRequestPending,
+        this.members,
+        this.pendingRequests,
+        this.scoreboard);
+  }
+
+  /**
+   * Copy the current immutable object by setting a value for the {@link GroupPage#getIsMember() isMember} attribute.
+   * A value equality check is used to prevent copying of the same value by returning {@code this}.
+   * @param value A new value for isMember
+   * @return A modified copy of the {@code this} object
+   */
+  public final ImmutableGroupPage withIsMember(boolean value) {
+    if (this.isMember == value) return this;
+    return new ImmutableGroupPage(
+        this.uuid,
+        this.accessType,
+        this.name,
+        this.canCreateChallenge,
+        this.canManageUsers,
+        value,
+        this.isRequestPending,
+        this.members,
+        this.pendingRequests,
+        this.scoreboard);
+  }
+
+  /**
+   * Copy the current immutable object by setting a value for the {@link GroupPage#getIsRequestPending() isRequestPending} attribute.
+   * A value equality check is used to prevent copying of the same value by returning {@code this}.
+   * @param value A new value for isRequestPending
+   * @return A modified copy of the {@code this} object
+   */
+  public final ImmutableGroupPage withIsRequestPending(boolean value) {
+    if (this.isRequestPending == value) return this;
+    return new ImmutableGroupPage(
+        this.uuid,
+        this.accessType,
+        this.name,
+        this.canCreateChallenge,
+        this.canManageUsers,
+        this.isMember,
+        value,
         this.members,
         this.pendingRequests,
         this.scoreboard);
@@ -314,6 +392,8 @@ public final class ImmutableGroupPage extends GroupPage {
         this.name,
         this.canCreateChallenge,
         this.canManageUsers,
+        this.isMember,
+        this.isRequestPending,
         newValue,
         this.pendingRequests,
         this.scoreboard);
@@ -334,6 +414,8 @@ public final class ImmutableGroupPage extends GroupPage {
         this.name,
         this.canCreateChallenge,
         this.canManageUsers,
+        this.isMember,
+        this.isRequestPending,
         newValue,
         this.pendingRequests,
         this.scoreboard);
@@ -352,6 +434,8 @@ public final class ImmutableGroupPage extends GroupPage {
         this.name,
         this.canCreateChallenge,
         this.canManageUsers,
+        this.isMember,
+        this.isRequestPending,
         this.members,
         newValue,
         this.scoreboard);
@@ -372,6 +456,8 @@ public final class ImmutableGroupPage extends GroupPage {
         this.name,
         this.canCreateChallenge,
         this.canManageUsers,
+        this.isMember,
+        this.isRequestPending,
         this.members,
         newValue,
         this.scoreboard);
@@ -393,6 +479,8 @@ public final class ImmutableGroupPage extends GroupPage {
         this.name,
         this.canCreateChallenge,
         this.canManageUsers,
+        this.isMember,
+        this.isRequestPending,
         this.members,
         this.pendingRequests,
         newValue);
@@ -415,13 +503,15 @@ public final class ImmutableGroupPage extends GroupPage {
         && name.equals(another.name)
         && canCreateChallenge == another.canCreateChallenge
         && canManageUsers == another.canManageUsers
+        && isMember == another.isMember
+        && isRequestPending == another.isRequestPending
         && members.equals(another.members)
         && pendingRequests.equals(another.pendingRequests)
         && scoreboard.equals(another.scoreboard);
   }
 
   /**
-   * Computes a hash code from attributes: {@code uuid}, {@code accessType}, {@code name}, {@code canCreateChallenge}, {@code canManageUsers}, {@code members}, {@code pendingRequests}, {@code scoreboard}.
+   * Computes a hash code from attributes: {@code uuid}, {@code accessType}, {@code name}, {@code canCreateChallenge}, {@code canManageUsers}, {@code isMember}, {@code isRequestPending}, {@code members}, {@code pendingRequests}, {@code scoreboard}.
    * @return hashCode value
    */
   @Override
@@ -432,6 +522,8 @@ public final class ImmutableGroupPage extends GroupPage {
     h += (h << 5) + name.hashCode();
     h += (h << 5) + Boolean.hashCode(canCreateChallenge);
     h += (h << 5) + Boolean.hashCode(canManageUsers);
+    h += (h << 5) + Boolean.hashCode(isMember);
+    h += (h << 5) + Boolean.hashCode(isRequestPending);
     h += (h << 5) + members.hashCode();
     h += (h << 5) + pendingRequests.hashCode();
     h += (h << 5) + scoreboard.hashCode();
@@ -450,6 +542,8 @@ public final class ImmutableGroupPage extends GroupPage {
         + ", name=" + name
         + ", canCreateChallenge=" + canCreateChallenge
         + ", canManageUsers=" + canManageUsers
+        + ", isMember=" + isMember
+        + ", isRequestPending=" + isRequestPending
         + ", members=" + members
         + ", pendingRequests=" + pendingRequests
         + ", scoreboard=" + scoreboard
@@ -472,6 +566,10 @@ public final class ImmutableGroupPage extends GroupPage {
     boolean canCreateChallengeIsSet;
     boolean canManageUsers;
     boolean canManageUsersIsSet;
+    boolean isMember;
+    boolean isMemberIsSet;
+    boolean isRequestPending;
+    boolean isRequestPendingIsSet;
     List<UserPage> members = Collections.emptyList();
     List<UserPage> pendingRequests = Collections.emptyList();
     boolean pendingRequestsIsSet;
@@ -499,6 +597,16 @@ public final class ImmutableGroupPage extends GroupPage {
       this.canManageUsers = canManageUsers;
       this.canManageUsersIsSet = true;
     }
+    @JsonProperty("isMember")
+    public void setIsMember(boolean isMember) {
+      this.isMember = isMember;
+      this.isMemberIsSet = true;
+    }
+    @JsonProperty("isRequestPending")
+    public void setIsRequestPending(boolean isRequestPending) {
+      this.isRequestPending = isRequestPending;
+      this.isRequestPendingIsSet = true;
+    }
     @JsonProperty("members")
     public void setMembers(List<UserPage> members) {
       this.members = members;
@@ -523,6 +631,10 @@ public final class ImmutableGroupPage extends GroupPage {
     public boolean getCanCreateChallenge() { throw new UnsupportedOperationException(); }
     @Override
     public boolean getCanManageUsers() { throw new UnsupportedOperationException(); }
+    @Override
+    public boolean getIsMember() { throw new UnsupportedOperationException(); }
+    @Override
+    public boolean getIsRequestPending() { throw new UnsupportedOperationException(); }
     @Override
     public List<UserPage> getMembers() { throw new UnsupportedOperationException(); }
     @Override
@@ -554,6 +666,12 @@ public final class ImmutableGroupPage extends GroupPage {
     }
     if (json.canManageUsersIsSet) {
       builder.canManageUsers(json.canManageUsers);
+    }
+    if (json.isMemberIsSet) {
+      builder.isMember(json.isMember);
+    }
+    if (json.isRequestPendingIsSet) {
+      builder.isRequestPending(json.isRequestPending);
     }
     if (json.members != null) {
       builder.addAllMembers(json.members);
@@ -592,6 +710,8 @@ public final class ImmutableGroupPage extends GroupPage {
    *    .name(String) // required {@link GroupPage#getName() name}
    *    .canCreateChallenge(boolean) // required {@link GroupPage#getCanCreateChallenge() canCreateChallenge}
    *    .canManageUsers(boolean) // required {@link GroupPage#getCanManageUsers() canManageUsers}
+   *    .isMember(boolean) // required {@link GroupPage#getIsMember() isMember}
+   *    .isRequestPending(boolean) // required {@link GroupPage#getIsRequestPending() isRequestPending}
    *    .addMembers|addAllMembers(com.bachelor.backend.domain.users.UserPage) // {@link GroupPage#getMembers() members} elements
    *    .addPendingRequests|addAllPendingRequests(com.bachelor.backend.domain.users.UserPage) // {@link GroupPage#getPendingRequests() pendingRequests} elements
    *    .putScoreboard|putAllScoreboard(String =&gt; int) // {@link GroupPage#getScoreboard() scoreboard} mappings
@@ -617,9 +737,11 @@ public final class ImmutableGroupPage extends GroupPage {
     private static final long INIT_BIT_NAME = 0x4L;
     private static final long INIT_BIT_CAN_CREATE_CHALLENGE = 0x8L;
     private static final long INIT_BIT_CAN_MANAGE_USERS = 0x10L;
+    private static final long INIT_BIT_IS_MEMBER = 0x20L;
+    private static final long INIT_BIT_IS_REQUEST_PENDING = 0x40L;
     private static final long OPT_BIT_PENDING_REQUESTS = 0x1L;
     private static final long OPT_BIT_SCOREBOARD = 0x2L;
-    private long initBits = 0x1fL;
+    private long initBits = 0x7fL;
     private long optBits;
 
     private UUID uuid;
@@ -627,6 +749,8 @@ public final class ImmutableGroupPage extends GroupPage {
     private String name;
     private boolean canCreateChallenge;
     private boolean canManageUsers;
+    private boolean isMember;
+    private boolean isRequestPending;
     private List<UserPage> members = new ArrayList<UserPage>();
     private List<UserPage> pendingRequests = new ArrayList<UserPage>();
     private Map<String, Integer> scoreboard = new LinkedHashMap<String, Integer>();
@@ -649,6 +773,8 @@ public final class ImmutableGroupPage extends GroupPage {
       name(instance.getName());
       canCreateChallenge(instance.getCanCreateChallenge());
       canManageUsers(instance.getCanManageUsers());
+      isMember(instance.getIsMember());
+      isRequestPending(instance.getIsRequestPending());
       addAllMembers(instance.getMembers());
       addAllPendingRequests(instance.getPendingRequests());
       putAllScoreboard(instance.getScoreboard());
@@ -712,6 +838,30 @@ public final class ImmutableGroupPage extends GroupPage {
     public final Builder canManageUsers(boolean canManageUsers) {
       this.canManageUsers = canManageUsers;
       initBits &= ~INIT_BIT_CAN_MANAGE_USERS;
+      return this;
+    }
+
+    /**
+     * Initializes the value for the {@link GroupPage#getIsMember() isMember} attribute.
+     * @param isMember The value for isMember 
+     * @return {@code this} builder for use in a chained invocation
+     */
+    @JsonProperty("isMember")
+    public final Builder isMember(boolean isMember) {
+      this.isMember = isMember;
+      initBits &= ~INIT_BIT_IS_MEMBER;
+      return this;
+    }
+
+    /**
+     * Initializes the value for the {@link GroupPage#getIsRequestPending() isRequestPending} attribute.
+     * @param isRequestPending The value for isRequestPending 
+     * @return {@code this} builder for use in a chained invocation
+     */
+    @JsonProperty("isRequestPending")
+    public final Builder isRequestPending(boolean isRequestPending) {
+      this.isRequestPending = isRequestPending;
+      initBits &= ~INIT_BIT_IS_REQUEST_PENDING;
       return this;
     }
 
@@ -895,6 +1045,8 @@ public final class ImmutableGroupPage extends GroupPage {
       if ((initBits & INIT_BIT_NAME) != 0) attributes.add("name");
       if ((initBits & INIT_BIT_CAN_CREATE_CHALLENGE) != 0) attributes.add("canCreateChallenge");
       if ((initBits & INIT_BIT_CAN_MANAGE_USERS) != 0) attributes.add("canManageUsers");
+      if ((initBits & INIT_BIT_IS_MEMBER) != 0) attributes.add("isMember");
+      if ((initBits & INIT_BIT_IS_REQUEST_PENDING) != 0) attributes.add("isRequestPending");
       return "Cannot build GroupPage, some of required attributes are not set " + attributes;
     }
   }

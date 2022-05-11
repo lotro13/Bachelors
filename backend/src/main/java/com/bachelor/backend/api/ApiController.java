@@ -9,11 +9,24 @@ import com.bachelor.backend.domain.users.User;
 import com.bachelor.backend.domain.users.UserPage;
 import com.bachelor.backend.domain.users.UsersRepository;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
@@ -132,18 +145,25 @@ public class ApiController {
     //==================================================================================================================
 
     @GetMapping(value = "/api/groups")
-    public String getUseGroups(@RequestParam(value = "uuid", required = false) UUID uuid, Principal principal) {
-
+    public String getUseGroups(Principal principal) {
         final UUID userUuid = getUserUuidFromEmail(principal.getName());
+        var groups = groupRepository.findAll()
+                .stream()
+                .filter(g -> g.getMembers().contains(userUuid) || g.getPendingRequests().contains(userUuid))
+                .map(g -> toGroupPage(userUuid, g))
+                .collect(Collectors.toList());
+        return gson.toJson(groups);
+    }
 
-        if (uuid != null) {
-            var groups = groupRepository.finUserGroups(uuid).stream()
-                    .map(g -> toGroupPage(userUuid, g))
-                    .collect(Collectors.toList());
-            return gson.toJson(groups);
-        }
-
+    @GetMapping(value = "/api/groups/browse")
+    public String browseGroups(
+            Principal principal,
+            @RequestParam(value = "srch") String searchGroup
+    ) {
+        final UUID userUuid = getUserUuidFromEmail(principal.getName());
         var groups = groupRepository.findAll().stream()
+                .filter(g -> !g.getMembers().contains(userUuid))
+                .filter(g -> g.getName().contains(searchGroup))
                 .map(g -> toGroupPage(userUuid, g))
                 .collect(Collectors.toList());
         return gson.toJson(groups);
@@ -197,8 +217,9 @@ public class ApiController {
     @GetMapping(value = "/api/groups/{groupUuid}/join")
     public ResponseEntity<String> requestToJoinGroup(
             @PathVariable UUID groupUuid,
-            @RequestParam(value = "userUuid") UUID uuid
+            Principal principal
     ) {
+        final var uuid = usersRepository.findByEmail(principal.getName()).get().getUuid();
         groupsService.tryToJoinGroup(uuid, groupUuid);
         return ResponseEntity.ok("Joined");
     }
@@ -206,10 +227,33 @@ public class ApiController {
     @GetMapping(value = "/api/groups/{groupUuid}/leave")
     public ResponseEntity<String> leaveGroup(
             @PathVariable UUID groupUuid,
-            @RequestParam(value = "userUuid") UUID uuid
+            Principal principal
     ) {
+        final var uuid = usersRepository.findByEmail(principal.getName()).get().getUuid();
         groupsService.leaveGroup(uuid, groupUuid);
-        return ResponseEntity.ok("Joined");
+        return ResponseEntity.ok("Left");
+    }
+
+    @GetMapping(value = "/api/groups/{groupUuid}/accept")
+    public ResponseEntity<String> acceptJoinToGroupRequest(
+            @PathVariable UUID groupUuid,
+            @RequestParam("targetUuid") UUID targetUuid,
+            Principal principal
+    ) {
+        final var uuid = usersRepository.findByEmail(principal.getName()).get().getUuid();
+        groupsService.approveJoinRequest(uuid, groupUuid, targetUuid);
+        return ResponseEntity.ok("Accepted");
+    }
+
+    @GetMapping(value = "/api/groups/{groupUuid}/deny")
+    public ResponseEntity<String> declineJoinToGroupRequest(
+            @PathVariable UUID groupUuid,
+            @RequestParam("targetUuid") UUID targetUuid,
+            Principal principal
+    ) {
+        final var uuid = usersRepository.findByEmail(principal.getName()).get().getUuid();
+        groupsService.declineJoinRequest(uuid, groupUuid, targetUuid);
+        return ResponseEntity.ok("Denied");
     }
 
     //==================================================================================================================
@@ -269,6 +313,21 @@ public class ApiController {
         return gson.toJson(challenges.stream().map(c -> toChallengePage(userUuid, c)).collect(Collectors.toList()));
     }
 
+    @GetMapping(value = "/api/challenges/browse")
+    public String browseChallenges(
+            Principal principal,
+            @RequestParam(value = "srch") String searchGroup,
+            @RequestParam(value = "group") UUID groupUuid
+    ) {
+        final UUID userUuid = getUserUuidFromEmail(principal.getName());
+        var challenges = challengesRepository.findByGroup(groupUuid).stream()
+                .filter(g -> !g.getParticipants().contains(userUuid))
+                .filter(g -> g.getName().contains(searchGroup))
+                .map(g -> toChallengePage(userUuid, g))
+                .collect(Collectors.toList());
+        return gson.toJson(challenges);
+    }
+
     @PostMapping(
             value = "/api/challenges/create",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -324,8 +383,9 @@ public class ApiController {
     @GetMapping(value = "/api/challenges/{challengeUuid}/join")
     public ResponseEntity<String> requestToJoinChallenge(
             @PathVariable UUID challengeUuid,
-            @RequestParam(value = "userUuid") UUID uuid
+            Principal principal
     ) {
+        final var uuid = usersRepository.findByEmail(principal.getName()).get().getUuid();
         challengesService.joinChallenge(uuid, challengeUuid);
         return ResponseEntity.ok("User joined challenged");
     }
@@ -333,8 +393,9 @@ public class ApiController {
     @GetMapping(value = "/api/challenges/{challengeUuid}/leave")
     public ResponseEntity<String> leaveChallenge(
             @PathVariable UUID challengeUuid,
-            @RequestParam(value = "userUuid") UUID uuid
+            Principal principal
     ) {
+        final var uuid = usersRepository.findByEmail(principal.getName()).get().getUuid();
         challengesService.leaveChallenge(uuid, challengeUuid);
         return ResponseEntity.ok("User left challenge");
     }
@@ -356,6 +417,22 @@ public class ApiController {
         final List<User> users = usersRepository.findAll();
         return ResponseEntity.ok(gson.toJson(users));
     }
+
+    @PostMapping(value = "/api/file")
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+        saveFile(file);
+        return ResponseEntity.ok("File uploaded");
+    }
+
+    @GetMapping("/api/files/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+
+        Resource file = loadAsResource(filename);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    }
+
 
     private UUID getUserUuidFromEmail(String email) {
         final var user = usersRepository.findByEmail(email).get();
@@ -392,6 +469,7 @@ public class ApiController {
                 .scoreboard(scoreboard)
                 .type(challenge.getType())
                 .canCreateRatedPost(true) ///TODO implement rated posts
+                .isParticipant(challenge.getParticipants().contains(userUuid))
                 .build();
     }
 
@@ -404,7 +482,7 @@ public class ApiController {
                 .map(u -> UserPage.create(u))
                 .collect(Collectors.toList());
 
-        final var pendingRequests = group.getMembers().stream()
+        final var pendingRequests = group.getPendingRequests().stream()
                 .map(uuid -> usersRepository.findByUuid(uuid).get())
                 .map(u -> UserPage.create(u))
                 .collect(Collectors.toList());
@@ -422,13 +500,44 @@ public class ApiController {
                 .canManageUsers(isModerator || idFounder)
                 .pendingRequests(pendingRequests)
                 .scoreboard(scoreboard)
+                .isMember(group.getMembers().contains(userUuid))
+                .isRequestPending(group.getPendingRequests().contains(userUuid))
                 .build();
     }
 
-    private UserPage toUserPage(User user) {
-        return ImmutableUserPage.builder()
-                .uuid(user.getUuid())
-                .username(user.getUsername())
-                .build();
+    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
+    private static final String filepath = "./www/files";
+
+    public void saveFile(MultipartFile file) {
+        if (file.isEmpty()) {
+            LOG.error("File not found");
+        }
+
+        try {
+            var fileName = file.getOriginalFilename();
+            var is = file.getInputStream();
+
+            Files.copy(is, Paths.get(filepath + fileName),
+                    StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            LOG.error("\"Failed to store file %f\", file.getName()");
+        }
     }
+
+    public Resource loadAsResource(String filename) {
+        try {
+            Path file = Path.of(URI.create(filepath)).resolve(filename);
+            Resource resource = new UrlResource(file.toUri());
+            if(resource.exists() || resource.isReadable()) {
+                return resource;
+            }
+            else {
+                LOG.error("File not found");
+            }
+        } catch (MalformedURLException ignored) {
+        }
+
+        return null;
+    }
+
 }

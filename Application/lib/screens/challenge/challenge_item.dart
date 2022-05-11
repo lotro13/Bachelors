@@ -1,9 +1,11 @@
 import 'package:application/domain/challenge.dart';
+import 'package:application/domain/challenge_status.dart';
 import 'package:application/providers/navigation_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/groups_provider.dart';
+import '../../services/http_service.dart';
 
 class ChallengeItem extends StatelessWidget {
   const ChallengeItem({Key? key, required this.challenge}) : super(key: key);
@@ -33,8 +35,7 @@ class ChallengeItem extends StatelessWidget {
                     left: 36, top: 16, bottom: 16, right: 16),
                 child: Row(
                   children: [
-                    const Icon(Icons.calendar_today_outlined,
-                        color: Colors.white),
+                    Icon(getStatusIcon(challenge.status), color: Colors.white),
                     const SizedBox(width: 16),
                     Expanded(
                       child: Column(
@@ -62,6 +63,7 @@ class ChallengeItem extends StatelessWidget {
                         ],
                       ),
                     ),
+                    getActiveButton(groups, challenge),
                   ],
                 ),
               ),
@@ -69,12 +71,65 @@ class ChallengeItem extends StatelessWidget {
           ),
         ),
         onTap: () => {
-          groups.hardSelectedChallengeRequest(challenge.uuid),
-          navigation.changeGroupScreen('/challenge'),
+          if (challenge.isParticipant)
+            {
+              groups.hardSelectedChallengeRequest(challenge.uuid),
+              navigation.changeGroupScreen('/challenge'),
+            }
         },
       ),
     );
   }
 
-  toList() {}
+  getStatusIcon(ChallengeStatus status) {
+    switch (status) {
+      case ChallengeStatus.FINISHED:
+        return Icons.play_arrow;
+      case ChallengeStatus.STARTED:
+        return Icons.flag;
+      case ChallengeStatus.CLOSED:
+        return Icons.stop;
+      case ChallengeStatus.IDLE:
+        return Icons.timer;
+    }
+  }
+
+  getActiveButton(GroupsProvider groups, Challenge challenge) {
+    if (challenge.isParticipant) {
+      return GestureDetector(
+        child: const SizedBox(
+          width: 36,
+          height: 36,
+          child: Icon(
+            Icons.close,
+            color: Colors.white,
+          ),
+        ),
+        onTap: () async => {
+          await HttpService.leaveChallenge(challenge.uuid),
+          groups.hardGroupChallengesRequest()
+        },
+      );
+    }
+
+    if (!challenge.isParticipant) {
+      return GestureDetector(
+        child: const SizedBox(
+          width: 36,
+          height: 36,
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+        ),
+        onTap: () async => {
+          await HttpService.joinChallenge(challenge.uuid),
+          groups.hardGroupChallengesRequest(),
+          groups.fetchChallengesBrowsingResult(""),
+        },
+      );
+    }
+
+    return Container();
+  }
 }

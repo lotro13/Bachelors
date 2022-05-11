@@ -32,6 +32,7 @@ public final class ImmutableChallengePage extends ChallengePage {
   private final boolean canManageStatus;
   private final boolean canCreatePost;
   private final boolean canCreateRatedPost;
+  private final boolean isParticipant;
   private final Map<String, Integer> scoreboard;
 
   private ImmutableChallengePage(ImmutableChallengePage.Builder builder) {
@@ -44,6 +45,7 @@ public final class ImmutableChallengePage extends ChallengePage {
     this.canManageStatus = builder.canManageStatus;
     this.canCreatePost = builder.canCreatePost;
     this.canCreateRatedPost = builder.canCreateRatedPost;
+    this.isParticipant = builder.isParticipant;
     this.scoreboard = builder.scoreboardIsSet()
         ? createUnmodifiableMap(false, false, builder.scoreboard)
         : createUnmodifiableMap(true, false, super.getScoreboard());
@@ -59,6 +61,7 @@ public final class ImmutableChallengePage extends ChallengePage {
       boolean canManageStatus,
       boolean canCreatePost,
       boolean canCreateRatedPost,
+      boolean isParticipant,
       Map<String, Integer> scoreboard) {
     this.uuid = uuid;
     this.name = name;
@@ -69,6 +72,7 @@ public final class ImmutableChallengePage extends ChallengePage {
     this.canManageStatus = canManageStatus;
     this.canCreatePost = canCreatePost;
     this.canCreateRatedPost = canCreateRatedPost;
+    this.isParticipant = isParticipant;
     this.scoreboard = scoreboard;
   }
 
@@ -154,6 +158,15 @@ public final class ImmutableChallengePage extends ChallengePage {
   }
 
   /**
+   * @return The value of the {@code isParticipant} attribute
+   */
+  @JsonProperty("isParticipant")
+  @Override
+  public boolean getIsParticipant() {
+    return isParticipant;
+  }
+
+  /**
    * @return The value of the {@code scoreboard} attribute
    */
   @JsonProperty("scoreboard")
@@ -181,6 +194,7 @@ public final class ImmutableChallengePage extends ChallengePage {
         this.canManageStatus,
         this.canCreatePost,
         this.canCreateRatedPost,
+        this.isParticipant,
         this.scoreboard);
   }
 
@@ -203,6 +217,7 @@ public final class ImmutableChallengePage extends ChallengePage {
         this.canManageStatus,
         this.canCreatePost,
         this.canCreateRatedPost,
+        this.isParticipant,
         this.scoreboard);
   }
 
@@ -225,6 +240,7 @@ public final class ImmutableChallengePage extends ChallengePage {
         this.canManageStatus,
         this.canCreatePost,
         this.canCreateRatedPost,
+        this.isParticipant,
         this.scoreboard);
   }
 
@@ -247,6 +263,7 @@ public final class ImmutableChallengePage extends ChallengePage {
         this.canManageStatus,
         this.canCreatePost,
         this.canCreateRatedPost,
+        this.isParticipant,
         this.scoreboard);
   }
 
@@ -269,6 +286,7 @@ public final class ImmutableChallengePage extends ChallengePage {
         this.canManageStatus,
         this.canCreatePost,
         this.canCreateRatedPost,
+        this.isParticipant,
         this.scoreboard);
   }
 
@@ -291,6 +309,7 @@ public final class ImmutableChallengePage extends ChallengePage {
         this.canManageStatus,
         this.canCreatePost,
         this.canCreateRatedPost,
+        this.isParticipant,
         this.scoreboard);
   }
 
@@ -312,6 +331,7 @@ public final class ImmutableChallengePage extends ChallengePage {
         value,
         this.canCreatePost,
         this.canCreateRatedPost,
+        this.isParticipant,
         this.scoreboard);
   }
 
@@ -333,6 +353,7 @@ public final class ImmutableChallengePage extends ChallengePage {
         this.canManageStatus,
         value,
         this.canCreateRatedPost,
+        this.isParticipant,
         this.scoreboard);
   }
 
@@ -353,6 +374,29 @@ public final class ImmutableChallengePage extends ChallengePage {
         this.type,
         this.canManageStatus,
         this.canCreatePost,
+        value,
+        this.isParticipant,
+        this.scoreboard);
+  }
+
+  /**
+   * Copy the current immutable object by setting a value for the {@link ChallengePage#getIsParticipant() isParticipant} attribute.
+   * A value equality check is used to prevent copying of the same value by returning {@code this}.
+   * @param value A new value for isParticipant
+   * @return A modified copy of the {@code this} object
+   */
+  public final ImmutableChallengePage withIsParticipant(boolean value) {
+    if (this.isParticipant == value) return this;
+    return new ImmutableChallengePage(
+        this.uuid,
+        this.name,
+        this.description,
+        this.deadline,
+        this.status,
+        this.type,
+        this.canManageStatus,
+        this.canCreatePost,
+        this.canCreateRatedPost,
         value,
         this.scoreboard);
   }
@@ -377,6 +421,7 @@ public final class ImmutableChallengePage extends ChallengePage {
         this.canManageStatus,
         this.canCreatePost,
         this.canCreateRatedPost,
+        this.isParticipant,
         newValue);
   }
 
@@ -401,11 +446,12 @@ public final class ImmutableChallengePage extends ChallengePage {
         && canManageStatus == another.canManageStatus
         && canCreatePost == another.canCreatePost
         && canCreateRatedPost == another.canCreateRatedPost
+        && isParticipant == another.isParticipant
         && scoreboard.equals(another.scoreboard);
   }
 
   /**
-   * Computes a hash code from attributes: {@code uuid}, {@code name}, {@code description}, {@code deadline}, {@code status}, {@code type}, {@code canManageStatus}, {@code canCreatePost}, {@code canCreateRatedPost}, {@code scoreboard}.
+   * Computes a hash code from attributes: {@code uuid}, {@code name}, {@code description}, {@code deadline}, {@code status}, {@code type}, {@code canManageStatus}, {@code canCreatePost}, {@code canCreateRatedPost}, {@code isParticipant}, {@code scoreboard}.
    * @return hashCode value
    */
   @Override
@@ -420,6 +466,7 @@ public final class ImmutableChallengePage extends ChallengePage {
     h += (h << 5) + Boolean.hashCode(canManageStatus);
     h += (h << 5) + Boolean.hashCode(canCreatePost);
     h += (h << 5) + Boolean.hashCode(canCreateRatedPost);
+    h += (h << 5) + Boolean.hashCode(isParticipant);
     h += (h << 5) + scoreboard.hashCode();
     return h;
   }
@@ -440,6 +487,7 @@ public final class ImmutableChallengePage extends ChallengePage {
         + ", canManageStatus=" + canManageStatus
         + ", canCreatePost=" + canCreatePost
         + ", canCreateRatedPost=" + canCreateRatedPost
+        + ", isParticipant=" + isParticipant
         + ", scoreboard=" + scoreboard
         + "}";
   }
@@ -465,6 +513,8 @@ public final class ImmutableChallengePage extends ChallengePage {
     boolean canCreatePostIsSet;
     boolean canCreateRatedPost;
     boolean canCreateRatedPostIsSet;
+    boolean isParticipant;
+    boolean isParticipantIsSet;
     Map<String, Integer> scoreboard = Collections.emptyMap();
     boolean scoreboardIsSet;
     @JsonProperty("uuid")
@@ -506,6 +556,11 @@ public final class ImmutableChallengePage extends ChallengePage {
       this.canCreateRatedPost = canCreateRatedPost;
       this.canCreateRatedPostIsSet = true;
     }
+    @JsonProperty("isParticipant")
+    public void setIsParticipant(boolean isParticipant) {
+      this.isParticipant = isParticipant;
+      this.isParticipantIsSet = true;
+    }
     @JsonProperty("scoreboard")
     public void setScoreboard(Map<String, Integer> scoreboard) {
       this.scoreboard = scoreboard;
@@ -529,6 +584,8 @@ public final class ImmutableChallengePage extends ChallengePage {
     public boolean getCanCreatePost() { throw new UnsupportedOperationException(); }
     @Override
     public boolean getCanCreateRatedPost() { throw new UnsupportedOperationException(); }
+    @Override
+    public boolean getIsParticipant() { throw new UnsupportedOperationException(); }
     @Override
     public Map<String, Integer> getScoreboard() { throw new UnsupportedOperationException(); }
   }
@@ -569,6 +626,9 @@ public final class ImmutableChallengePage extends ChallengePage {
     if (json.canCreateRatedPostIsSet) {
       builder.canCreateRatedPost(json.canCreateRatedPost);
     }
+    if (json.isParticipantIsSet) {
+      builder.isParticipant(json.isParticipant);
+    }
     if (json.scoreboardIsSet) {
       builder.putAllScoreboard(json.scoreboard);
     }
@@ -604,6 +664,7 @@ public final class ImmutableChallengePage extends ChallengePage {
    *    .canManageStatus(boolean) // required {@link ChallengePage#getCanManageStatus() canManageStatus}
    *    .canCreatePost(boolean) // required {@link ChallengePage#getCanCreatePost() canCreatePost}
    *    .canCreateRatedPost(boolean) // required {@link ChallengePage#getCanCreateRatedPost() canCreateRatedPost}
+   *    .isParticipant(boolean) // required {@link ChallengePage#getIsParticipant() isParticipant}
    *    .putScoreboard|putAllScoreboard(String =&gt; int) // {@link ChallengePage#getScoreboard() scoreboard} mappings
    *    .build();
    * </pre>
@@ -631,8 +692,9 @@ public final class ImmutableChallengePage extends ChallengePage {
     private static final long INIT_BIT_CAN_MANAGE_STATUS = 0x40L;
     private static final long INIT_BIT_CAN_CREATE_POST = 0x80L;
     private static final long INIT_BIT_CAN_CREATE_RATED_POST = 0x100L;
+    private static final long INIT_BIT_IS_PARTICIPANT = 0x200L;
     private static final long OPT_BIT_SCOREBOARD = 0x1L;
-    private long initBits = 0x1ffL;
+    private long initBits = 0x3ffL;
     private long optBits;
 
     private UUID uuid;
@@ -644,6 +706,7 @@ public final class ImmutableChallengePage extends ChallengePage {
     private boolean canManageStatus;
     private boolean canCreatePost;
     private boolean canCreateRatedPost;
+    private boolean isParticipant;
     private Map<String, Integer> scoreboard = new LinkedHashMap<String, Integer>();
 
     private Builder() {
@@ -668,6 +731,7 @@ public final class ImmutableChallengePage extends ChallengePage {
       canManageStatus(instance.getCanManageStatus());
       canCreatePost(instance.getCanCreatePost());
       canCreateRatedPost(instance.getCanCreateRatedPost());
+      isParticipant(instance.getIsParticipant());
       putAllScoreboard(instance.getScoreboard());
       return this;
     }
@@ -781,6 +845,18 @@ public final class ImmutableChallengePage extends ChallengePage {
     }
 
     /**
+     * Initializes the value for the {@link ChallengePage#getIsParticipant() isParticipant} attribute.
+     * @param isParticipant The value for isParticipant 
+     * @return {@code this} builder for use in a chained invocation
+     */
+    @JsonProperty("isParticipant")
+    public final Builder isParticipant(boolean isParticipant) {
+      this.isParticipant = isParticipant;
+      initBits &= ~INIT_BIT_IS_PARTICIPANT;
+      return this;
+    }
+
+    /**
      * Put one entry to the {@link ChallengePage#getScoreboard() scoreboard} map.
      * @param key The key in the scoreboard map
      * @param value The associated value in the scoreboard map
@@ -865,6 +941,7 @@ public final class ImmutableChallengePage extends ChallengePage {
       if ((initBits & INIT_BIT_CAN_MANAGE_STATUS) != 0) attributes.add("canManageStatus");
       if ((initBits & INIT_BIT_CAN_CREATE_POST) != 0) attributes.add("canCreatePost");
       if ((initBits & INIT_BIT_CAN_CREATE_RATED_POST) != 0) attributes.add("canCreateRatedPost");
+      if ((initBits & INIT_BIT_IS_PARTICIPANT) != 0) attributes.add("isParticipant");
       return "Cannot build ChallengePage, some of required attributes are not set " + attributes;
     }
   }

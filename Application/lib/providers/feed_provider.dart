@@ -18,6 +18,20 @@ class FeedProvider extends ChangeNotifier {
   DataStatus postCommentsStatus = DataStatus.NULL;
   List<Comment> postComments = [];
 
+  String? name;
+
+  void getCurrentUsername() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String? optional = sharedPreferences.getString("name");
+
+    if (optional != null) {
+      name = optional;
+    }
+    name = "Andrej";
+
+    notifyListeners();
+  }
+
   void forceRequestSelectedPost(String uuid) {
     if (selectedPost != null) {
       if (selectedPost!.uuid == uuid) {
@@ -90,12 +104,13 @@ class FeedProvider extends ChangeNotifier {
 
   Future<void> createNewComment(String body, String targetUuid) async {
     postCommentsStatus = DataStatus.NULL;
+
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String author = sharedPreferences.getString("me")!;
 
     Comment comment =
         Comment("", author, body, targetUuid, DateTime.now().toIso8601String());
 
-    HttpService.postNewComment(comment);
+    await HttpService.postNewComment(comment);
   }
 }

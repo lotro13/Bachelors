@@ -85,8 +85,8 @@ class CommentsPage extends StatelessWidget {
                       const SizedBox(width: 12),
                       GestureDetector(
                         child: const Center(child: Icon(Icons.send)),
-                        onTap: () => {
-                          feed.createNewComment(
+                        onTap: () async => {
+                          await feed.createNewComment(
                               commentController.text, post.uuid),
                           feed.softPostCommentsRequest(post.uuid),
                           commentController.clear()

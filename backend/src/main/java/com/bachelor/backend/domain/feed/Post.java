@@ -19,13 +19,15 @@ public abstract class Post implements Serializable {
                 .target(targetUuid)
                 .title(title)
                 .description(description)
+//                .bodyURL("./api/files/" + someImage)
                 .bodyURL(someImage)
                 .numberOfComments(numberOfComments)
                 .build();
     }
 
     public static Post create(NewPost newPost) {
-        return initialize(newPost.getAuthor(), newPost.getTarget(), newPost.getTitle(), newPost.getDescription(), newPost.getBodyURL());
+        return initialize(newPost.getAuthor(), newPost.getTarget(), newPost.getTitle(), newPost.getDescription(), newPost.getBodyURL()).copy()
+                .withIsRated(newPost.getIsRated());
     }
 
     public static Post initialize(UUID userUuid, UUID targetUuid, String name, String description, String someImage) {
@@ -53,4 +55,9 @@ public abstract class Post implements Serializable {
     public abstract String getBodyURL();
 
     public abstract int getNumberOfComments();
+
+    @Value.Default
+    public boolean getIsRated() {
+        return false;
+    }
 }

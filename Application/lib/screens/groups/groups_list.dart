@@ -50,6 +50,7 @@ class GroupsList extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 26),
               child: FloatingActionButton(
+                heroTag: "challengeCreateButton",
                 onPressed: () => {
                   Navigator.pushNamed(context, '/create/group'),
                 },
@@ -62,8 +63,9 @@ class GroupsList extends StatelessWidget {
           Align(
             alignment: Alignment.bottomRight,
             child: FloatingActionButton(
+              heroTag: "challengeSearchButton",
               onPressed: () => {
-                Navigator.pushNamed(context, '/create/challenge'),
+                Navigator.pushNamed(context, '/browse/group'),
               },
               tooltip: 'Create group',
               child: const Icon(Icons.search),

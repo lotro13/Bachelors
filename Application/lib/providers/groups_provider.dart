@@ -2,6 +2,7 @@ import 'package:application/domain/challenge.dart';
 import 'package:application/domain/data_status.dart';
 import 'package:application/services/http_service.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../domain/group.dart';
 import '../domain/post.dart';
@@ -25,6 +26,9 @@ class GroupsProvider extends ChangeNotifier {
   DataStatus challengeFeedStatus = DataStatus.NULL;
 
   String? postCreationTargetUuid;
+
+  List<Group> browsingGroups = [];
+  List<Challenge> browsingChallenges = [];
 
   void setPostCreationTargetUuid(String? targetUuid) {
     print("Post creation target set");
@@ -60,7 +64,6 @@ class GroupsProvider extends ChangeNotifier {
 
   void hardActiveUserChallengesRequest() {
     print("Hard active challenges requested");
-
     _fetchActiveUserChallenges();
   }
 
@@ -195,6 +198,31 @@ class GroupsProvider extends ChangeNotifier {
 
       print('Fetched challenge feed received');
       print(feed.length);
+
+      notifyListeners();
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> fetchGroupBrowsingResult(String srch) async {
+    browsingGroups = [];
+    try {
+      var groups = await HttpService.browseGroups(srch);
+      browsingGroups = groups;
+
+      notifyListeners();
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> fetchChallengesBrowsingResult(String srch) async {
+    browsingChallenges = [];
+    try {
+      var groupUuid = selectedGroup!.uuid;
+      var challenges = await HttpService.browseChallenges(srch, groupUuid);
+      browsingChallenges = challenges;
 
       notifyListeners();
     } on Exception catch (e) {

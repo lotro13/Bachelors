@@ -26,6 +26,10 @@ public abstract class GroupPage implements Serializable {
 
     public abstract boolean getCanManageUsers();
 
+    public abstract boolean getIsMember();
+
+    public abstract boolean getIsRequestPending();
+
     public abstract List<UserPage> getMembers();
 
     @Value.Default

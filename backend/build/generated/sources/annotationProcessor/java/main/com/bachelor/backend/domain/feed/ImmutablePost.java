@@ -27,6 +27,20 @@ public final class ImmutablePost extends Post {
   private final String description;
   private final String bodyURL;
   private final int numberOfComments;
+  private final boolean isRated;
+
+  private ImmutablePost(ImmutablePost.Builder builder) {
+    this.uuid = builder.uuid;
+    this.author = builder.author;
+    this.target = builder.target;
+    this.title = builder.title;
+    this.description = builder.description;
+    this.bodyURL = builder.bodyURL;
+    this.numberOfComments = builder.numberOfComments;
+    this.isRated = builder.isRatedIsSet()
+        ? builder.isRated
+        : super.getIsRated();
+  }
 
   private ImmutablePost(
       UUID uuid,
@@ -35,7 +49,8 @@ public final class ImmutablePost extends Post {
       String title,
       String description,
       String bodyURL,
-      int numberOfComments) {
+      int numberOfComments,
+      boolean isRated) {
     this.uuid = uuid;
     this.author = author;
     this.target = target;
@@ -43,6 +58,7 @@ public final class ImmutablePost extends Post {
     this.description = description;
     this.bodyURL = bodyURL;
     this.numberOfComments = numberOfComments;
+    this.isRated = isRated;
   }
 
   /**
@@ -109,6 +125,15 @@ public final class ImmutablePost extends Post {
   }
 
   /**
+   * @return The value of the {@code isRated} attribute
+   */
+  @JsonProperty("isRated")
+  @Override
+  public boolean getIsRated() {
+    return isRated;
+  }
+
+  /**
    * Copy the current immutable object by setting a value for the {@link Post#getUuid() uuid} attribute.
    * A shallow reference equality check is used to prevent copying of the same value by returning {@code this}.
    * @param value A new value for uuid
@@ -124,7 +149,8 @@ public final class ImmutablePost extends Post {
         this.title,
         this.description,
         this.bodyURL,
-        this.numberOfComments);
+        this.numberOfComments,
+        this.isRated);
   }
 
   /**
@@ -143,7 +169,8 @@ public final class ImmutablePost extends Post {
         this.title,
         this.description,
         this.bodyURL,
-        this.numberOfComments);
+        this.numberOfComments,
+        this.isRated);
   }
 
   /**
@@ -162,7 +189,8 @@ public final class ImmutablePost extends Post {
         this.title,
         this.description,
         this.bodyURL,
-        this.numberOfComments);
+        this.numberOfComments,
+        this.isRated);
   }
 
   /**
@@ -181,7 +209,8 @@ public final class ImmutablePost extends Post {
         newValue,
         this.description,
         this.bodyURL,
-        this.numberOfComments);
+        this.numberOfComments,
+        this.isRated);
   }
 
   /**
@@ -193,7 +222,15 @@ public final class ImmutablePost extends Post {
   public final ImmutablePost withDescription(String value) {
     String newValue = Objects.requireNonNull(value, "description");
     if (this.description.equals(newValue)) return this;
-    return new ImmutablePost(this.uuid, this.author, this.target, this.title, newValue, this.bodyURL, this.numberOfComments);
+    return new ImmutablePost(
+        this.uuid,
+        this.author,
+        this.target,
+        this.title,
+        newValue,
+        this.bodyURL,
+        this.numberOfComments,
+        this.isRated);
   }
 
   /**
@@ -212,7 +249,8 @@ public final class ImmutablePost extends Post {
         this.title,
         this.description,
         newValue,
-        this.numberOfComments);
+        this.numberOfComments,
+        this.isRated);
   }
 
   /**
@@ -223,7 +261,34 @@ public final class ImmutablePost extends Post {
    */
   public final ImmutablePost withNumberOfComments(int value) {
     if (this.numberOfComments == value) return this;
-    return new ImmutablePost(this.uuid, this.author, this.target, this.title, this.description, this.bodyURL, value);
+    return new ImmutablePost(
+        this.uuid,
+        this.author,
+        this.target,
+        this.title,
+        this.description,
+        this.bodyURL,
+        value,
+        this.isRated);
+  }
+
+  /**
+   * Copy the current immutable object by setting a value for the {@link Post#getIsRated() isRated} attribute.
+   * A value equality check is used to prevent copying of the same value by returning {@code this}.
+   * @param value A new value for isRated
+   * @return A modified copy of the {@code this} object
+   */
+  public final ImmutablePost withIsRated(boolean value) {
+    if (this.isRated == value) return this;
+    return new ImmutablePost(
+        this.uuid,
+        this.author,
+        this.target,
+        this.title,
+        this.description,
+        this.bodyURL,
+        this.numberOfComments,
+        value);
   }
 
   /**
@@ -244,11 +309,12 @@ public final class ImmutablePost extends Post {
         && title.equals(another.title)
         && description.equals(another.description)
         && bodyURL.equals(another.bodyURL)
-        && numberOfComments == another.numberOfComments;
+        && numberOfComments == another.numberOfComments
+        && isRated == another.isRated;
   }
 
   /**
-   * Computes a hash code from attributes: {@code uuid}, {@code author}, {@code target}, {@code title}, {@code description}, {@code bodyURL}, {@code numberOfComments}.
+   * Computes a hash code from attributes: {@code uuid}, {@code author}, {@code target}, {@code title}, {@code description}, {@code bodyURL}, {@code numberOfComments}, {@code isRated}.
    * @return hashCode value
    */
   @Override
@@ -261,6 +327,7 @@ public final class ImmutablePost extends Post {
     h += (h << 5) + description.hashCode();
     h += (h << 5) + bodyURL.hashCode();
     h += (h << 5) + numberOfComments;
+    h += (h << 5) + Boolean.hashCode(isRated);
     return h;
   }
 
@@ -278,6 +345,7 @@ public final class ImmutablePost extends Post {
         + ", description=" + description
         + ", bodyURL=" + bodyURL
         + ", numberOfComments=" + numberOfComments
+        + ", isRated=" + isRated
         + "}";
   }
 
@@ -298,6 +366,8 @@ public final class ImmutablePost extends Post {
     String bodyURL;
     int numberOfComments;
     boolean numberOfCommentsIsSet;
+    boolean isRated;
+    boolean isRatedIsSet;
     @JsonProperty("uuid")
     public void setUuid(UUID uuid) {
       this.uuid = uuid;
@@ -327,6 +397,11 @@ public final class ImmutablePost extends Post {
       this.numberOfComments = numberOfComments;
       this.numberOfCommentsIsSet = true;
     }
+    @JsonProperty("isRated")
+    public void setIsRated(boolean isRated) {
+      this.isRated = isRated;
+      this.isRatedIsSet = true;
+    }
     @Override
     public UUID getUuid() { throw new UnsupportedOperationException(); }
     @Override
@@ -341,6 +416,8 @@ public final class ImmutablePost extends Post {
     public String getBodyURL() { throw new UnsupportedOperationException(); }
     @Override
     public int getNumberOfComments() { throw new UnsupportedOperationException(); }
+    @Override
+    public boolean getIsRated() { throw new UnsupportedOperationException(); }
   }
 
   /**
@@ -373,6 +450,9 @@ public final class ImmutablePost extends Post {
     if (json.numberOfCommentsIsSet) {
       builder.numberOfComments(json.numberOfComments);
     }
+    if (json.isRatedIsSet) {
+      builder.isRated(json.isRated);
+    }
     return builder.build();
   }
 
@@ -403,6 +483,7 @@ public final class ImmutablePost extends Post {
    *    .description(String) // required {@link Post#getDescription() description}
    *    .bodyURL(String) // required {@link Post#getBodyURL() bodyURL}
    *    .numberOfComments(int) // required {@link Post#getNumberOfComments() numberOfComments}
+   *    .isRated(boolean) // optional {@link Post#getIsRated() isRated}
    *    .build();
    * </pre>
    * @return A new ImmutablePost builder
@@ -427,7 +508,9 @@ public final class ImmutablePost extends Post {
     private static final long INIT_BIT_DESCRIPTION = 0x10L;
     private static final long INIT_BIT_BODY_U_R_L = 0x20L;
     private static final long INIT_BIT_NUMBER_OF_COMMENTS = 0x40L;
+    private static final long OPT_BIT_IS_RATED = 0x1L;
     private long initBits = 0x7fL;
+    private long optBits;
 
     private UUID uuid;
     private UUID author;
@@ -436,6 +519,7 @@ public final class ImmutablePost extends Post {
     private String description;
     private String bodyURL;
     private int numberOfComments;
+    private boolean isRated;
 
     private Builder() {
     }
@@ -456,6 +540,7 @@ public final class ImmutablePost extends Post {
       description(instance.getDescription());
       bodyURL(instance.getBodyURL());
       numberOfComments(instance.getNumberOfComments());
+      isRated(instance.getIsRated());
       return this;
     }
 
@@ -544,6 +629,19 @@ public final class ImmutablePost extends Post {
     }
 
     /**
+     * Initializes the value for the {@link Post#getIsRated() isRated} attribute.
+     * <p><em>If not set, this attribute will have a default value as returned by the initializer of {@link Post#getIsRated() isRated}.</em>
+     * @param isRated The value for isRated 
+     * @return {@code this} builder for use in a chained invocation
+     */
+    @JsonProperty("isRated")
+    public final Builder isRated(boolean isRated) {
+      this.isRated = isRated;
+      optBits |= OPT_BIT_IS_RATED;
+      return this;
+    }
+
+    /**
      * Builds a new {@link ImmutablePost ImmutablePost}.
      * @return An immutable instance of Post
      * @throws java.lang.IllegalStateException if any required attributes are missing
@@ -552,7 +650,11 @@ public final class ImmutablePost extends Post {
       if (initBits != 0) {
         throw new IllegalStateException(formatRequiredAttributesMessage());
       }
-      return new ImmutablePost(uuid, author, target, title, description, bodyURL, numberOfComments);
+      return new ImmutablePost(this);
+    }
+
+    private boolean isRatedIsSet() {
+      return (optBits & OPT_BIT_IS_RATED) != 0;
     }
 
     private String formatRequiredAttributesMessage() {

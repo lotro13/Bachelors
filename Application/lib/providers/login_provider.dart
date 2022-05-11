@@ -1,3 +1,4 @@
+import 'package:application/domain/user.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,19 +40,19 @@ class LoginProvider extends ChangeNotifier {
     return me != null;
   }
 
-  Future<void> checkIfLoggedIn() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String? loggedInUser = await HttpService.getCurrentUserUuid();
+  // Future<void> checkIfLoggedIn() async {
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   // String? loggedInUser = await HttpService.getCurrentUserUuid();
 
-    if (loggedInUser != null) {
-      sharedPreferences.setString("me", loggedInUser);
-      me = loggedInUser;
-    } else {
-      me = null;
-    }
+  //   if (loggedInUser != null) {
+  //     sharedPreferences.setString("me", loggedInUser);
+  //     me = loggedInUser;
+  //   } else {
+  //     me = null;
+  //   }
 
-    notifyListeners();
-  }
+  //   notifyListeners();
+  // }
 
   bool isTokenRequested() {
     return tokenRequested;

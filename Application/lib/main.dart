@@ -9,6 +9,8 @@ import 'package:application/screens/menu/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/navigation_provider.dart';
+import 'screens/challenge/find_challenge_page.dart';
+import 'screens/groups/find_group_page.dart';
 
 void main() => runApp(MultiProvider(
       providers: [
@@ -39,6 +41,8 @@ class MyApp extends StatelessWidget {
         '/create/group': (BuildContext context) => const GroupCreationPage(),
         '/create/challenge': (BuildContext context) =>
             const ChallengeCreationPage(),
+        '/browse/group': (BuildContext context) => FindGroupPage(),
+        '/browse/challenge': (BuildContext context) => FindChallengesPage(),
         '/create/post': (BuildContext context) => const PostCreationPage(),
       },
     );
