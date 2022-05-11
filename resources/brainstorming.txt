@@ -1,0 +1,33 @@
+Challenge
+UUID
+Name
+Deadline
+Type (Reacurring; Challenge; Event?;)
+
+
+I - AuthentificationService
+Login; Start sessions; Register; Mb connect FB or Google
+
+-------------------Unite?------------------------------------------
+II - GroupService
+Manage groups; Manage group members; Manage challenge duration; 
+
+III - ChallengesService
+Manage challenges in groups; Manage leaderboards;
+
+IV - FeedService
+Aggregates feed for user; Manage comments; Upload new posts;
+--------------------------------------------------------------------
+
+V - NotificationsService
+	Push messages to user; Notify about comment replies; Notify about new challenges;
+	Notify about ending challenges; Notify about hot posts;
+
+
+Database tables
+
+1. Users	I
+2. Groups	II; III; IV;
+3. Challenges	II; III; IV;
+4. Feed(Posts)	III; IV;
+5. Comments	IV;

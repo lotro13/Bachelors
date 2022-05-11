@@ -1,0 +1,4 @@
+enum AccessType {
+  PRIVATE,
+  PUBLIC,
+}

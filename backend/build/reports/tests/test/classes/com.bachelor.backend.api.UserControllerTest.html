@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - UserControllerTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>UserControllerTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.bachelor.backend.api.html">com.bachelor.backend.api</a> &gt; UserControllerTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">3</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.044s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">entering_bad_token_should_fail_authorization()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">it_should_be_possible_to_register_a_new_user()</td>
+<td class="success">0.019s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">requesting_authorization_should_create_new_token()</td>
+<td class="success">0.021s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2022-05-11 09:10:41.459  INFO 13036 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.bachelor.backend.api.UserControllerTest], using SpringBootContextLoader
+2022-05-11 09:10:41.460  INFO 13036 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.bachelor.backend.api.UserControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-05-11 09:10:41.460  INFO 13036 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.bachelor.backend.api.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-05-11 09:10:41.461  INFO 13036 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.bachelor.backend.BackendApplication for test class com.bachelor.backend.api.UserControllerTest
+2022-05-11 09:10:41.463  INFO 13036 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-05-11 09:10:41.464  INFO 13036 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@5c0f508b, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7a2ffb0b, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@13cae908, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@43b74979, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@659ac28c, org.springframework.test.context.support.DirtiesContextTestExecutionListener@60688a97, org.springframework.test.context.transaction.TransactionalTestExecutionListener@242ebd3b, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@5d2bc446, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@6e96f3cd, org.springframework.test.context.event.EventPublishingTestExecutionListener@4a0ee0ba, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@1b984ba5, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@1812b564, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@41433530, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@7c751692, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@2569afda, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@28dd8786, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@70efdd18]
+2022-05-11 09:10:41.477  INFO 13036 --- [    Test worker] o.s.nativex.NativeListener               : AOT mode disabled
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.6.6)
+
+2022-05-11 09:10:41.480  INFO 13036 --- [    Test worker] c.b.backend.api.UserControllerTest       : Starting UserControllerTest using Java 17.0.1 on LAPTOP-QVC60LIH with PID 13036 (started by lotro in C:\Users\lotro\Documents\VGTU\BD\backend)
+2022-05-11 09:10:41.480  INFO 13036 --- [    Test worker] c.b.backend.api.UserControllerTest       : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2022-05-11 09:10:41.841  INFO 13036 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure any request
+2022-05-11 09:10:42.083  INFO 13036 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 8.5.7 by Redgate
+2022-05-11 09:10:42.083  INFO 13036 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.7
+2022-05-11 09:10:42.083  INFO 13036 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : 
+2022-05-11 09:10:42.084  INFO 13036 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2022-05-11 09:10:42.086  INFO 13036 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2022-05-11 09:10:42.086  INFO 13036 --- [    Test worker] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:h2:mem:a82d00a7-ab09-498e-94a9-051dc540c94a (H2 2.1)
+2022-05-11 09:10:42.088  INFO 13036 --- [    Test worker] o.f.core.internal.command.DbValidate     : Successfully validated 0 migrations (execution time 00:00.000s)
+2022-05-11 09:10:42.089  WARN 13036 --- [    Test worker] o.f.core.internal.command.DbValidate     : No migrations found. Are your locations set up correctly?
+2022-05-11 09:10:42.089  INFO 13036 --- [    Test worker] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table &quot;PUBLIC&quot;.&quot;flyway_schema_history&quot; ...
+2022-05-11 09:10:42.094  INFO 13036 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Current version of schema &quot;PUBLIC&quot;: &lt;&lt; Empty Schema &gt;&gt;
+2022-05-11 09:10:42.094  INFO 13036 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Schema &quot;PUBLIC&quot; is up to date. No migration necessary.
+2022-05-11 09:10:42.201  INFO 13036 --- [    Test worker] org.quartz.impl.StdSchedulerFactory      : Using default implementation for ThreadExecutor
+2022-05-11 09:10:42.203  INFO 13036 --- [    Test worker] org.quartz.core.SchedulerSignalerImpl    : Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2022-05-11 09:10:42.203  INFO 13036 --- [    Test worker] org.quartz.core.QuartzScheduler          : Quartz Scheduler v.2.3.2 created.
+2022-05-11 09:10:42.203  INFO 13036 --- [    Test worker] org.quartz.simpl.RAMJobStore             : RAMJobStore initialized.
+2022-05-11 09:10:42.203  INFO 13036 --- [    Test worker] org.quartz.core.QuartzScheduler          : Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2022-05-11 09:10:42.203  INFO 13036 --- [    Test worker] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2022-05-11 09:10:42.203  INFO 13036 --- [    Test worker] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler version: 2.3.2
+2022-05-11 09:10:42.203  INFO 13036 --- [    Test worker] org.quartz.core.QuartzScheduler          : JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@72115c48
+2022-05-11 09:10:42.259  INFO 13036 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-05-11 09:10:42.259  INFO 13036 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-05-11 09:10:42.260  INFO 13036 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2022-05-11 09:10:42.284  INFO 13036 --- [    Test worker] o.s.s.quartz.SchedulerFactoryBean        : Starting Quartz Scheduler now
+2022-05-11 09:10:42.284  INFO 13036 --- [    Test worker] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2022-05-11 09:10:42.287  INFO 13036 --- [    Test worker] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2022-05-11 09:10:42.288  INFO 13036 --- [    Test worker] c.b.backend.api.UserControllerTest       : Started UserControllerTest in 0.823 seconds (JVM running for 6.665)
+2022-05-11 09:10:42.303  INFO 13036 --- [    Test worker] com.bachelor.backend.api.UserController  : Requesting token for mock@mock 
+2022-05-11 09:10:42.304  INFO 13036 --- [    Test worker] c.b.b.d.a.AuthenticationService          : Token for user mock@mock created: SomeToken
+2022-05-11 09:10:42.325  INFO 13036 --- [    Test worker] com.bachelor.backend.api.UserController  : Requesting token for monke@puretracker.lt 
+2022-05-11 09:10:42.326  INFO 13036 --- [    Test worker] c.b.b.d.a.AuthenticationService          : New user monke@puretracker.lt registered, with token: SomeToken
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.4.1</a> at 11 May 2022, 09:10:42</p>
+</div>
+</div>
+</body>
+</html>

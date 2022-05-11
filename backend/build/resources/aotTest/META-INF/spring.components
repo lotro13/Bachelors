@@ -1,0 +1,19 @@
+#
+#Tue May 10 23:49:16 EEST 2022
+com.bachelor.backend.JarOfBeans=org.springframework.stereotype.Component
+com.bachelor.backend.domain.challenge.ChallengesService=org.springframework.stereotype.Component
+com.bachelor.backend.security.CustomTokenAuthenticationProvider=org.springframework.stereotype.Component
+com.bachelor.backend.BackendApplication=org.springframework.stereotype.Component,org.springframework.boot.SpringBootConfiguration
+com.bachelor.backend.domain.users.UsersService=org.springframework.stereotype.Component
+com.bachelor.backend.api.UserController=org.springframework.stereotype.Component
+com.bachelor.backend.domain.challenge.ChallengesRepository=org.springframework.stereotype.Component
+com.bachelor.backend.domain.authentication.AuthenticationService=org.springframework.stereotype.Component,javax.inject.Singleton
+com.bachelor.backend.api.ApiController=org.springframework.stereotype.Component
+com.bachelor.backend.domain.feed.PostsRepository=org.springframework.stereotype.Component,javax.inject.Singleton
+com.bachelor.backend.domain.users.UsersRepository=org.springframework.stereotype.Component,javax.inject.Singleton
+com.bachelor.backend.domain.group.GroupsService=org.springframework.stereotype.Component
+com.bachelor.backend.domain.authentication.TokenRepository=org.springframework.stereotype.Component,javax.inject.Singleton
+com.bachelor.backend.security.SecurityConfiguration=org.springframework.stereotype.Component
+com.bachelor.backend.domain.feed.FeedService=org.springframework.stereotype.Component
+com.bachelor.backend.domain.group.GroupRepository=org.springframework.stereotype.Component,javax.inject.Singleton
+com.bachelor.backend.domain.feed.CommentsRepository=org.springframework.stereotype.Component

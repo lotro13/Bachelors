@@ -1,0 +1,40 @@
+Ubiquitous language:
+User
+Member
+Moderator
+Founder
+Group
+Challenge
+Accomplishment
+
+
+
+User should be able to create new account
+User should be able to connect with FB or Google
+User should be able to join the group
+
+Group member should be able to join chalenges in groups
+Group member should be able to track his progress on the chalenge
+Group member should be able to create posts for chalenge
+Group member should be able to write a comment
+**Group member should be able to rate other posts
+
+Group moderator should be able to create posts for the group
+Group moderator should be able to remove members from the group
+Group moderator should be able to remove posts and comments from the group
+
+Group founder should be able to start/end challenges
+
+
+All group data should be encrypted
+At the end of a challenge score board should be formed
+
+
+
+Services
+Accounts service - 
+Group micro service
+	Chalenge service - used to manage group chalenges
+	Communication service
+	Resources service - used to access encrypted data
+Notification service

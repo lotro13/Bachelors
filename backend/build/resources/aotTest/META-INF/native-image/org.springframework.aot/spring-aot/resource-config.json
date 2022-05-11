@@ -1,0 +1,176 @@
+{
+  "resources": {
+    "includes": [
+      {
+        "pattern": ".*.kotlin_builtins"
+      },
+      {
+        "pattern": "META-INF/.*.kotlin_module$"
+      },
+      {
+        "pattern": "META-INF/MANIFEST.MF"
+      },
+      {
+        "pattern": "META-INF/services/.*"
+      },
+      {
+        "pattern": "META-INF/spring.binders"
+      },
+      {
+        "pattern": "META-INF/spring.components"
+      },
+      {
+        "pattern": "^META-INF/build-info.properties"
+      },
+      {
+        "pattern": "^META-INF/resources/.*"
+      },
+      {
+        "pattern": "^git.properties"
+      },
+      {
+        "pattern": "^public/.*"
+      },
+      {
+        "pattern": "^resources/.*"
+      },
+      {
+        "pattern": "^static/.*"
+      },
+      {
+        "pattern": "^templates/.*"
+      },
+      {
+        "pattern": "application.*.properties"
+      },
+      {
+        "pattern": "application.*.yaml"
+      },
+      {
+        "pattern": "application.*.yml"
+      },
+      {
+        "pattern": "application.properties"
+      },
+      {
+        "pattern": "banner.txt"
+      },
+      {
+        "pattern": "com/bachelor/backend/BackendApplication.class"
+      },
+      {
+        "pattern": "com/bachelor/backend/security/SecurityConfiguration.class"
+      },
+      {
+        "pattern": "data.sql"
+      },
+      {
+        "pattern": "db/.*"
+      },
+      {
+        "pattern": "logging.properties"
+      },
+      {
+        "pattern": "messages/.*"
+      },
+      {
+        "pattern": "org/apache/catalina/startup/MimeTypeMappings.properties"
+      },
+      {
+        "pattern": "org/quartz/impl/jdbcjobstore/tables_.*.sql$"
+      },
+      {
+        "pattern": "org/springframework/boot/autoconfigure/transaction/TransactionAutoConfiguration\\$EnableTransactionManagementConfiguration\\$JdkDynamicAutoProxyConfiguration.class"
+      },
+      {
+        "pattern": "org/springframework/boot/logging/.*.properties"
+      },
+      {
+        "pattern": "org/springframework/boot/logging/.*.xml"
+      },
+      {
+        "pattern": "org/springframework/boot/logging/java/logging.properties"
+      },
+      {
+        "pattern": "org/springframework/http/mime.types"
+      },
+      {
+        "pattern": "org/springframework/nativex/hint/TypeAccess.class"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-db2.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-derby.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-drop-db2.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-drop-derby.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-drop-h2.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-drop-hsqldb.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-drop-mysql.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-drop-oracle.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-drop-postgresql.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-drop-sqlite.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-drop-sqlserver.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-drop-sybase.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-h2.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-hsqldb.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-mysql.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-oracle.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-postgresql.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-sqlite.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-sqlserver.sql"
+      },
+      {
+        "pattern": "org/springframework/session/jdbc/schema-sybase.sql"
+      },
+      {
+        "pattern": "org/springframework/web/util/HtmlCharacterEntityReferences.properties"
+      },
+      {
+        "pattern": "schema.sql"
+      },
+      {
+        "pattern": "spring.properties"
+      }
+    ]
+  },
+  "bundles": [
+    {
+      "name": "org.springframework.security.messages"
+    }
+  ]
+}
